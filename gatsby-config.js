@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: '/maxout-block-calculator',
   siteMetadata: {
     title: `Maxout Block Calculator`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
