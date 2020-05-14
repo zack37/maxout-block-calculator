@@ -27,7 +27,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flex: 1,
     justifyContent: "center",
-    padding: 5,
+    padding: theme.spacing(1),
+  },
+  inputField: {
+    display: 'flex',
+    flex: 1,
   },
   tableHeader: {
     display: "flex",
@@ -50,7 +54,7 @@ export default () => {
   return (
     <Grid container spacing={3} className={classes.root}>
       <Grid item container spacing={2} xs={12}>
-        <Grid item container spacing={1} xs={12} md={4}>
+        <Grid item container xs={12} md={4}>
           <Paper className={classes.paper}>
             <TextField
               id="weight-input"
@@ -59,11 +63,12 @@ export default () => {
               value={weight}
               variant="outlined"
               helperText="The amount of weight you plan on maxing out"
+              className={classes.inputField}
               onChange={handleWeightChange}
             />
           </Paper>
         </Grid>
-        <Grid item container spacing={1} xs={12} md={4}>
+        <Grid item container xs={12} md={4}>
           <Paper className={classes.paper}>
             <TextField
               id="factor-input"
@@ -72,6 +77,7 @@ export default () => {
               value={factor}
               variant="outlined"
               helperText="Select the smallest amount of weight you can add"
+              className={classes.inputField}
               onChange={(e) => setFactor(e.target.value)}
             >
               {factors.map((x) => (
@@ -91,6 +97,7 @@ export default () => {
               value={roundingMode}
               variant="outlined"
               helperText="Select how the numbers should round"
+              className={classes.inputField}
               onChange={(e) => setRoundingMode(e.target.value)}
             >
               {Object.keys(roundingModeFnMap).map((x) => (
@@ -103,28 +110,28 @@ export default () => {
         </Grid>
       </Grid>
       <Grid item container spacing={2} xs={12}>
-        <Grid item container spacing={1} xs={12} sm={6} md={4}>
+        <Grid item container xs={12} sm={6} md={4}>
           <Results
             title="5×5"
             headerLabels={['Set', '%', 'Weight']}
             values={fiveByFiveSteps.map((x, i) => [i+1, round(x*100), round(weight * x)])}
             />
         </Grid>
-        <Grid item container spacing={1} xs={12} sm={6} md={4}>
+        <Grid item container xs={12} sm={6} md={4}>
           <Results
             title="5×3"
             headerLabels={['Set', '%', 'Weight']}
             values={fiveByThreeSteps.map((x, i) => [i+1, round(x*100), round(weight * x)])}
             />
         </Grid>
-        <Grid item container spacing={1} xs={12} md={4}>
+        <Grid item container xs={12} md={4}>
           <Results
             title="10×10"
             headerLabels={['Set', 'Weight']}
             values={tenByTenSteps.map((x, i) => [i+1, round(weight * x)])}
             />
         </Grid>
-        <Grid item container spacing={1} xs={12}>
+        <Grid item container xs={12}>
           <Results
             title="Reference"
             headerLabels={['%', 'Weight']}

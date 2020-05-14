@@ -1,4 +1,4 @@
-import React from 'react' 
+import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Paper from "@material-ui/core/Paper"
 import Table from "@material-ui/core/Table"
@@ -11,13 +11,6 @@ import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 
 const useStyles = makeStyles((theme) => ({
-  root: { flexGrow: 1, flexDirection: "column" },
-  paper: {
-    display: "flex",
-    flex: 1,
-    justifyContent: "center",
-    padding: 5,
-  },
   tableHeader: {
     display: "flex",
     flex: 1,
@@ -25,16 +18,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const createRow = row => row.map((cell, i) => (
-  <TableCell align={i === 0 ? 'left' : 'right'}>{cell}</TableCell>
-))
+const createRow = (row) =>
+  row.map((cell, i) => (
+    <TableCell align={i === 0 ? "left" : "right"}>{cell}</TableCell>
+  ))
 
-export default ({
-  title,
-  headerLabels,
-  values,
-}) => {
-const classes = useStyles()
+export default ({ title, headerLabels, values }) => {
+  const classes = useStyles()
 
   return (
     <TableContainer component={Paper}>
@@ -51,15 +41,15 @@ const classes = useStyles()
         <TableHead>
           <TableRow>
             {headerLabels.map((label, i) => (
-              <TableCell key={label} align={i === 0 ? "left" : 'right'}>{label}</TableCell>
+              <TableCell key={label} align={i === 0 ? "left" : "right"}>
+                {label}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
           {values.map((row, i) => (
-            <TableRow key={`table-row-${i}`}>
-              {createRow(row)}
-            </TableRow>
+            <TableRow key={`table-row-${i}`}>{createRow(row)}</TableRow>
           ))}
         </TableBody>
       </Table>
