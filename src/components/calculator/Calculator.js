@@ -5,13 +5,18 @@ import Paper from "@material-ui/core/Paper"
 import TextField from "@material-ui/core/TextField"
 import MenuItem from "@material-ui/core/MenuItem"
 
-import Results from './results'
+import Results from './Results'
 
 const factors = [2.5, 5]
+const ROUNDING_MODES = {
+  UP: 'up',
+  DOWN: 'down',
+  NEAREST: 'nearest',
+}
 const roundingModeFnMap = {
-  up: Math.ceil,
-  down: Math.floor,
-  nearest: Math.round,
+  [ROUNDING_MODES.UP]: Math.ceil,
+  [ROUNDING_MODES.DOWN]: Math.floor,
+  [ROUNDING_MODES.NEAREST]: Math.round,
 }
 // uses 5/100 rather than 0.05 because js rounding issues
 const percentSteps = Array.from({ length: 20 }, (_, i) => ((i + 1) * 5) / 100)
@@ -43,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
   const [weight, setWeight] = useState(135)
   const [factor, setFactor] = useState(5)
-  const [roundingMode, setRoundingMode] = useState("up")
+  const [roundingMode, setRoundingMode] = useState(ROUNDING_MODES.UP)
   const classes = useStyles()
   const round = roundTo(factor, roundingMode)
 
