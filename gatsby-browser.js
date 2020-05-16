@@ -1,5 +1,5 @@
-import React from "react"
-import App from "./src/App"
+import React from 'react'
+import App from './src/App'
 
 /**
  * Implement Gatsby's Browser APIs in this file.
@@ -8,6 +8,7 @@ import App from "./src/App"
  */
 
 // You can delete this file if you're not using it
-export const wrapRootElement = ({ element }) => {
+// eslint-disable-next-line react/prop-types
+export const wrapRootElement = ({element}) => {
   return <App>{element}</App>
 }

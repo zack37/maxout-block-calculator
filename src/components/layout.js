@@ -5,13 +5,13 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import React from 'react'
+import PropTypes from 'prop-types'
+import {useStaticQuery, graphql} from 'gatsby'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {makeStyles} from '@material-ui/core/styles'
 
-import Header from "./header"
+import Header from './header'
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Layout = ({ children }) => {
+const Layout = ({children}) => {
   const classes = useStyles()
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -33,13 +33,13 @@ const Layout = ({ children }) => {
 
   return (
     <>
-    <CssBaseline />
+      <CssBaseline />
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
           margin: `0 auto`,
           maxWidth: 960,
-          padding: `2rem 1.0875rem 1.45rem`,
+          padding: `2rem 1.0875rem 1.45rem`
         }}
       >
         <main>{children}</main>
@@ -54,7 +54,7 @@ const Layout = ({ children }) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 }
 
 export default Layout

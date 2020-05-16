@@ -1,29 +1,34 @@
-import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableContainer from "@material-ui/core/TableContainer"
-import TableHead from "@material-ui/core/TableHead"
-import TableRow from "@material-ui/core/TableRow"
-import Toolbar from "@material-ui/core/Toolbar"
-import Typography from "@material-ui/core/Typography"
+import React from 'react'
+import PropTypes from 'prop-types'
+import {makeStyles} from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   tableHeader: {
-    display: "flex",
+    display: 'flex',
     flex: 1,
-    justifyContent: "center",
-  },
+    justifyContent: 'center'
+  }
 }))
+
+const lastItem = (array) => array[array.length - 1]
 
 const createRow = (row) =>
   row.map((cell, i) => (
-    <TableCell align={i === 0 ? "left" : "right"}>{cell}</TableCell>
+    <TableCell key={cell} align={i === 0 ? 'left' : 'right'}>
+      {cell}
+    </TableCell>
   ))
 
-export default ({ title, headerLabels, values }) => {
+const Results = ({title, headerLabels, values}) => {
   const classes = useStyles()
 
   return (
@@ -41,7 +46,7 @@ export default ({ title, headerLabels, values }) => {
         <TableHead>
           <TableRow>
             {headerLabels.map((label, i) => (
-              <TableCell key={label} align={i === 0 ? "left" : "right"}>
+              <TableCell key={label} align={i === 0 ? 'left' : 'right'}>
                 {label}
               </TableCell>
             ))}
@@ -49,6 +54,7 @@ export default ({ title, headerLabels, values }) => {
         </TableHead>
         <TableBody>
           {values.map((row, i) => (
+            // eslint-disable-next-line react/no-array-index-key
             <TableRow key={`table-row-${i}`}>{createRow(row)}</TableRow>
           ))}
         </TableBody>
@@ -56,3 +62,11 @@ export default ({ title, headerLabels, values }) => {
     </TableContainer>
   )
 }
+
+Results.propTypes = {
+  title: PropTypes.string.isRequired,
+  headerLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  values: PropTypes.arrayOf(PropTypes.array)
+}
+
+export default Results

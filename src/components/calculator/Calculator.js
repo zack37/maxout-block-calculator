@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import MenuItem from "@material-ui/core/MenuItem"
+import React, {useState} from 'react'
+import {makeStyles} from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
 
 import Results from './Results'
 
@@ -11,38 +11,36 @@ const factors = [2.5, 5]
 const ROUNDING_MODES = {
   UP: 'up',
   DOWN: 'down',
-  NEAREST: 'nearest',
+  NEAREST: 'nearest'
 }
 const roundingModeFnMap = {
   [ROUNDING_MODES.UP]: Math.ceil,
   [ROUNDING_MODES.DOWN]: Math.floor,
-  [ROUNDING_MODES.NEAREST]: Math.round,
+  [ROUNDING_MODES.NEAREST]: Math.round
 }
 // uses 5/100 rather than 0.05 because js rounding issues
-const percentSteps = Array.from({ length: 20 }, (_, i) => ((i + 1) * 5) / 100)
+const percentSteps = Array.from({length: 20}, (_, i) => ((i + 1) * 5) / 100)
 const fiveByFiveSteps = [0.65, 0.65, 0.7, 0.7, 0.75]
 const fiveByThreeSteps = [0.75, 0.75, 0.8, 0.8, 0.85]
-const tenByTenSteps = Array.from({ length: 10 }, () => 0.5)
-const roundTo = (multiple, roundingMode = "up") => (x) =>
+const tenByTenSteps = Array.from({length: 10}, () => 0.5)
+const roundTo = (multiple, roundingMode = 'up') => (x) =>
   roundingModeFnMap[roundingMode](x / multiple) * multiple
 
 const useStyles = makeStyles((theme) => ({
-  root: { flexGrow: 1, flexDirection: "column" },
-  paper: {
-    display: "flex",
-    flex: 1,
-    justifyContent: "center",
-    padding: theme.spacing(1),
+  root: {
+    flexGrow: 1,
+    flexDirection: 'column'
   },
-  inputField: {
+  paper: {
     display: 'flex',
     flex: 1,
+    padding: theme.spacing(1)
   },
   tableHeader: {
-    display: "flex",
+    display: 'flex',
     flex: 1,
-    justifyContent: "center",
-  },
+    justifyContent: 'center'
+  }
 }))
 
 export default () => {
@@ -52,8 +50,8 @@ export default () => {
   const classes = useStyles()
   const round = roundTo(factor, roundingMode)
 
-  const handleWeightChange = (e) => {
-    setWeight(Number(e.target.value))
+  const handleWeightChange = ({target: {value}}) => {
+    setWeight(value && Number(value))
   }
 
   return (
@@ -62,13 +60,15 @@ export default () => {
         <Grid item container xs={12} md={4}>
           <Paper className={classes.paper}>
             <TextField
+              fullWidth
               id="weight-input"
               label="Weight"
               type="number"
               value={weight}
+              min={0}
+              max={1200}
               variant="outlined"
               helperText="The amount of weight you plan on maxing out"
-              className={classes.inputField}
               onChange={handleWeightChange}
             />
           </Paper>
@@ -76,14 +76,14 @@ export default () => {
         <Grid item container xs={12} md={4}>
           <Paper className={classes.paper}>
             <TextField
-              id="factor-input"
+              fullWidth
               select
+              id="factor-input"
               label="Factor"
               value={factor}
               variant="outlined"
               helperText="Select the smallest amount of weight you can add"
-              className={classes.inputField}
-              onChange={(e) => setFactor(e.target.value)}
+              onChange={(event) => setFactor(event.target.value)}
             >
               {factors.map((x) => (
                 <MenuItem key={x} value={x}>
@@ -96,14 +96,14 @@ export default () => {
         <Grid item container spacing={1} xs={12} md={4}>
           <Paper className={classes.paper}>
             <TextField
-              id="rounding-mode-input"
+              fullWidth
               select
+              id="rounding-mode-input"
               label="Rounding Mode"
               value={roundingMode}
               variant="outlined"
               helperText="Select how the numbers should round"
-              className={classes.inputField}
-              onChange={(e) => setRoundingMode(e.target.value)}
+              onChange={(event) => setRoundingMode(event.target.value)}
             >
               {Object.keys(roundingModeFnMap).map((x) => (
                 <MenuItem key={x} value={x}>
@@ -119,32 +119,42 @@ export default () => {
           <Results
             title="5×5"
             headerLabels={['Set', '%', 'Weight']}
-            values={fiveByFiveSteps.map((x, i) => [i+1, round(x*100), round(weight * x)])}
-            />
+            values={fiveByFiveSteps.map((x, i) => [
+              i + 1,
+              round(x * 100),
+              round(weight * x)
+            ])}
+          />
         </Grid>
         <Grid item container xs={12} sm={6} md={4}>
           <Results
             title="5×3"
             headerLabels={['Set', '%', 'Weight']}
-            values={fiveByThreeSteps.map((x, i) => [i+1, round(x*100), round(weight * x)])}
-            />
+            values={fiveByThreeSteps.map((x, i) => [
+              i + 1,
+              round(x * 100),
+              round(weight * x)
+            ])}
+          />
         </Grid>
         <Grid item container xs={12} md={4}>
           <Results
             title="10×10"
             headerLabels={['Set', 'Weight']}
-            values={tenByTenSteps.map((x, i) => [i+1, round(weight * x)])}
-            />
+            values={tenByTenSteps.map((x, i) => [i + 1, round(weight * x)])}
+          />
         </Grid>
         <Grid item container xs={12}>
           <Results
             title="Reference"
             headerLabels={['%', 'Weight']}
-            values={percentSteps.map(x => [`${round(x*100)}%`, round(weight * x)])}
-            />
+            values={percentSteps.map((x) => [
+              `${round(x * 100)}%`,
+              round(weight * x)
+            ])}
+          />
         </Grid>
       </Grid>
     </Grid>
   )
 }
-
