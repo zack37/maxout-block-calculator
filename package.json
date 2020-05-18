@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "Zack Smith <zack.t.smith37@gmail.com",
   "scripts": {
-    "build": "gatsby build",
+    "build": "gatsby build --prefix-paths",
     "develop": "gatsby develop --open",
     "start": "npm run develop",
     "serve": "gatsby serve",
@@ -13,7 +13,7 @@
     "lint": "xo --quiet",
     "lint:fix": "yarn lint --fix",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public -u \"Zack Smith <zack.t.smith37@gmail.com>\""
+    "deploy": "yarn build && gh-pages -d public -u \"Zack Smith <zack.t.smith37@gmail.com>\""
   },
   "dependencies": {
     "@material-ui/core": "^4.9.14",
