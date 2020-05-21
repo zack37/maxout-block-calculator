@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
+import Typography from '@material-ui/core/Typography'
 
 import Results from './Results'
 
@@ -11,12 +12,12 @@ const factors = [2.5, 5]
 const ROUNDING_MODES = {
   UP: 'up',
   DOWN: 'down',
-  NEAREST: 'nearest'
+  NEAREST: 'nearest',
 }
 const roundingModeFnMap = {
   [ROUNDING_MODES.UP]: Math.ceil,
   [ROUNDING_MODES.DOWN]: Math.floor,
-  [ROUNDING_MODES.NEAREST]: Math.round
+  [ROUNDING_MODES.NEAREST]: Math.round,
 }
 // uses 5/100 rather than 0.05 because js rounding issues
 const percentSteps = Array.from({length: 20}, (_, i) => ((i + 1) * 5) / 100)
@@ -29,18 +30,18 @@ const roundTo = (multiple, roundingMode = 'up') => (x) =>
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   paper: {
     display: 'flex',
     flex: 1,
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
   },
   tableHeader: {
     display: 'flex',
     flex: 1,
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 }))
 
 export default () => {
@@ -51,7 +52,13 @@ export default () => {
   const round = roundTo(factor, roundingMode)
 
   const handleWeightChange = ({target: {value}}) => {
-    setWeight(value && Number(value))
+    if (value === '') {
+      return setWeight(value)
+    }
+
+    const parsedValue = Number.parseInt(value || 0, 10)
+    const clampedValue = Math.max(0, Math.min(parsedValue, 1200))
+    setWeight(clampedValue)
   }
 
   return (
@@ -65,8 +72,6 @@ export default () => {
               label="Weight"
               type="number"
               value={weight}
-              min={0}
-              max={1200}
               variant="outlined"
               helperText="The amount of weight you plan on maxing out"
               onChange={handleWeightChange}
@@ -87,13 +92,13 @@ export default () => {
             >
               {factors.map((x) => (
                 <MenuItem key={x} value={x}>
-                  {x}
+                  <Typography>{x}</Typography>
                 </MenuItem>
               ))}
             </TextField>
           </Paper>
         </Grid>
-        <Grid item container spacing={1} xs={12} md={4}>
+        <Grid item container xs={12} md={4}>
           <Paper className={classes.paper}>
             <TextField
               fullWidth
@@ -107,7 +112,7 @@ export default () => {
             >
               {Object.keys(roundingModeFnMap).map((x) => (
                 <MenuItem key={x} value={x}>
-                  {x}
+                  <Typography>{x}</Typography>
                 </MenuItem>
               ))}
             </TextField>
@@ -122,7 +127,7 @@ export default () => {
             values={fiveByFiveSteps.map((x, i) => [
               i + 1,
               round(x * 100),
-              round(weight * x)
+              round(weight * x),
             ])}
           />
         </Grid>
@@ -133,7 +138,7 @@ export default () => {
             values={fiveByThreeSteps.map((x, i) => [
               i + 1,
               round(x * 100),
-              round(weight * x)
+              round(weight * x),
             ])}
           />
         </Grid>
@@ -150,7 +155,7 @@ export default () => {
             headerLabels={['%', 'Weight']}
             values={percentSteps.map((x) => [
               `${round(x * 100)}%`,
-              round(weight * x)
+              round(weight * x),
             ])}
           />
         </Grid>

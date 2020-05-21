@@ -15,8 +15,8 @@ import Header from './header'
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    padding: `${theme.spacing(3)}px 0px`
-  }
+    padding: `${theme.spacing(3)}px 0px`,
+  },
 }))
 
 const Layout = ({children}) => {
@@ -39,7 +39,7 @@ const Layout = ({children}) => {
         style={{
           margin: `0 auto`,
           maxWidth: 960,
-          padding: `2rem 1.0875rem 1.45rem`
+          padding: `2rem 1.0875rem 1.45rem`,
         }}
       >
         <main>{children}</main>
@@ -54,7 +54,7 @@ const Layout = ({children}) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 }
 
 export default Layout

@@ -9,18 +9,18 @@ import Link from '@material-ui/core/Link'
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    color: theme.palette.primary
+    color: theme.palette.primary,
   },
   brand: {
     textDecoration: 'none',
-    flexGrow: 1
-    // color: theme.palette.text.primary,
+    flexGrow: 1,
+    color: theme.palette.text.primary,
   },
   title: {
     flexGrow: 1,
     display: 'flex',
-    justifyContent: 'flex-end'
-  }
+    justifyContent: 'flex-end',
+  },
 }))
 
 const Header = ({siteTitle}) => {
@@ -44,11 +44,11 @@ const Header = ({siteTitle}) => {
 }
 
 Header.propTypes = {
-  siteTitle: PropTypes.string
+  siteTitle: PropTypes.string,
 }
 
 Header.defaultProps = {
-  siteTitle: ``
+  siteTitle: ``,
 }
 
 export default Header
