@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -21,12 +21,13 @@ const useStyles = makeStyles(() => ({
 
 const createRow = (row) =>
   row.map((cell, i) => (
+    // eslint-disable-next-line react/no-array-index-key
     <TableCell key={`${cell}-${i}`} align={i === 0 ? 'left' : 'right'}>
       <Typography>{cell}</Typography>
     </TableCell>
   ))
 
-const Results = ({title, headerLabels, values}) => {
+const Results = ({ title, headerLabels, values }) => {
   const classes = useStyles()
 
   return (
@@ -51,15 +52,10 @@ const Results = ({title, headerLabels, values}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {values.map(
-            (row, i) => (
-              console.log(row),
-              (
-                // eslint-disable-next-line react/no-array-index-key
-                <TableRow key={`table-row-${i}`}>{createRow(row)}</TableRow>
-              )
-            ),
-          )}
+          {values.map((row, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <TableRow key={`table-row-${i}`}>{createRow(row)}</TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
