@@ -7,9 +7,9 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import {useStaticQuery, graphql} from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 import Header from './header'
 
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   const classes = useStyles()
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
