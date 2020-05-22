@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import Typography from '@material-ui/core/Typography'
@@ -38,12 +39,16 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     flex: 1,
-    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+    padding: theme.spacing(2),
   },
   tableHeader: {
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
+  },
+  expansionSummaryContent: {
+    justifyContent: 'flex-end',
   },
 }))
 
@@ -78,12 +83,9 @@ export default () => {
   return (
     <Grid container spacing={3} className={classes.root}>
       <Grid item container spacing={2} xs={12}>
-        <Grid item xs={12}>
-          <ExpansionPanel>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              className={classes.paper}
-            >
+        <Paper className={classes.paper}>
+          <Grid item container xs={12}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 id="weight-input"
@@ -91,44 +93,59 @@ export default () => {
                 type="number"
                 value={weight}
                 variant="outlined"
-                helperText="Theamount of weight you plan on maximg out"
+                helperText="The amount of weight you plan on maximg out"
                 onChange={handleWeightChange}
               />
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Grid item container spacing={1} xs={12}>
-                <Grid item md={6} xs={12}>
-                  <TextField
-                    fullWidth
-                    select
-                    id="factor-input"
-                    label="Factor"
-                    value={factor}
-                    variant="outlined"
-                    helperText="Select the smallest amount of weight you can add"
-                    onChange={(event) => setFactor(event.target.value)}
-                  >
-                    {factorOptions}
-                  </TextField>
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  <TextField
-                    fullWidth
-                    select
-                    id="rounding-mode-input"
-                    label="Rounding Mode"
-                    value={roundingMode}
-                    variant="outlined"
-                    helperText="Select how the numbers should round"
-                    onChange={(event) => setRoundingMode(event.target.value)}
-                  >
-                    {roundiingModeOptions}
-                  </TextField>
-                </Grid>
-              </Grid>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </Grid>
+            </Grid>
+            <Grid item container xs={12} justify="center">
+              <ExpansionPanel
+                elevation={0}
+                style={{ flex: 1, justifyContent: 'flex-end' }}
+              >
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  classes={{ content: classes.expansionSummaryContent }}
+                >
+                  <Typography align="right">Advanced</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <Grid item container spacing={1} xs={12}>
+                    <Grid item sm={6} xs={12}>
+                      <TextField
+                        fullWidth
+                        select
+                        id="factor-input"
+                        label="Factor"
+                        value={factor}
+                        variant="outlined"
+                        helperText="Select the smallest amount of weight you can add"
+                        onChange={(event) => setFactor(event.target.value)}
+                      >
+                        {factorOptions}
+                      </TextField>
+                    </Grid>
+                    <Grid item sm={6} xs={12}>
+                      <TextField
+                        fullWidth
+                        select
+                        id="rounding-mode-input"
+                        label="Rounding Mode"
+                        value={roundingMode}
+                        variant="outlined"
+                        helperText="Select how the numbers should round"
+                        onChange={(event) =>
+                          setRoundingMode(event.target.value)
+                        }
+                      >
+                        {roundiingModeOptions}
+                      </TextField>
+                    </Grid>
+                  </Grid>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </Grid>
+          </Grid>
+        </Paper>
       </Grid>
       <Grid item container spacing={2} xs={12}>
         <Grid item container xs={12} sm={6} md={4}>
