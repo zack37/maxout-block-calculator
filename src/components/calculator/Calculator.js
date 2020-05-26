@@ -93,7 +93,7 @@ export default () => {
                 type="number"
                 value={weight}
                 variant="outlined"
-                helperText="The amount of weight you plan on maximg out"
+                helperText="The amount of weight you plan on maxing out"
                 onChange={handleWeightChange}
               />
             </Grid>
