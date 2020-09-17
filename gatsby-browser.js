@@ -8,7 +8,6 @@ import App from './src/App'
  */
 
 // You can delete this file if you're not using it
-// eslint-disable-next-line react/prop-types
 export const wrapRootElement = ({ element }) => {
   return <App>{element}</App>
 }

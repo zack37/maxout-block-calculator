@@ -63,7 +63,7 @@ const roundiingModeOptions = Object.keys(roundingModeFnMap).map((x) => (
   </MenuItem>
 ))
 
-export default () => {
+const Calculator = () => {
   const [weight, setWeight] = useState(135)
   const [factor, setFactor] = useState(5)
   const [roundingMode, setRoundingMode] = useState(ROUNDING_MODES.UP)
@@ -191,3 +191,5 @@ export default () => {
     </Grid>
   )
 }
+
+export default Calculator
