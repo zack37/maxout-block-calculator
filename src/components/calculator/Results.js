@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -27,7 +27,7 @@ const createRow = (row) =>
     </TableCell>
   ))
 
-const Results = ({ title, headerLabels, values }) => {
+const Results = memo(({ title, headerLabels, values }) => {
   const classes = useStyles()
 
   return (
@@ -60,12 +60,12 @@ const Results = ({ title, headerLabels, values }) => {
       </Table>
     </TableContainer>
   )
-}
+})
 
 Results.propTypes = {
   title: PropTypes.string.isRequired,
   headerLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
-  values: PropTypes.arrayOf(PropTypes.array),
+  values: PropTypes.arrayOf(PropTypes.array).isRequired,
 }
 
 export default Results

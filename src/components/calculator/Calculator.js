@@ -154,7 +154,7 @@ export default () => {
             headerLabels={['Set', '%', 'Weight']}
             values={fiveByFiveSteps.map((x, i) => [
               i + 1,
-              round(x * 100),
+              `${Math.floor(x * 100)}%`,
               round(weight * x),
             ])}
           />
@@ -165,7 +165,7 @@ export default () => {
             headerLabels={['Set', '%', 'Weight']}
             values={fiveByThreeSteps.map((x, i) => [
               i + 1,
-              round(x * 100),
+              `${Math.floor(x * 100)}%`,
               round(weight * x),
             ])}
           />
@@ -182,7 +182,7 @@ export default () => {
             title="Reference"
             headerLabels={['%', 'Weight']}
             values={percentSteps.map((x) => [
-              `${round(x * 100)}%`,
+              `${Math.floor(x * 100)}%`,
               round(weight * x),
             ])}
           />
