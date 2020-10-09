@@ -1,93 +1,89 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Tooltip from '@material-ui/core/Tooltip'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import Grid from '@material-ui/core/Grid'
+import Accordion from '@material-ui/core/Accordion'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
 
-import { createPlateLabel } from './helpers'
+import Row from './Row'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   tableHeader: {
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  paper: {
+    display: 'flex',
+    flex: 1,
+    margin: theme.spacing(1),
+    padding: theme.spacing(1),
+  },
+  tableHead: {
+    padding: theme.spacing(1),
   },
 }))
 
-const Row = ({ row, barWeight }) => {
-  const [open, setOpen] = useState(false)
+const getGridAlignment = (i, array) => {
+  if (i === 0) {
+    return 'flex-start'
+  }
 
-  const handleTooltipClose = () => setOpen(false)
-  const handleTooltipOpen = () => setOpen(true)
+  if (i === array.length - 1) {
+    return 'flex-end'
+  }
 
-  return row.map((cell, i) =>
-    i === row.length - 1 ? (
-      /* eslint-disable-next-line react/no-array-index-key */
-      <ClickAwayListener key={`${cell}-${i}`} onClickAway={handleTooltipClose}>
-        <TableCell align={i === 0 ? 'left' : 'right'}>
-          <Tooltip
-            arrow
-            disableFocusListener
-            open={open}
-            PopperProps={{ disablePortal: true }}
-            title={createPlateLabel((cell - barWeight) / 2)}
-            placement="top-end"
-          >
-            <Typography onClick={handleTooltipOpen}>{cell}</Typography>
-          </Tooltip>
-        </TableCell>
-      </ClickAwayListener>
-    ) : (
-      // eslint-disable-next-line react/no-array-index-key
-      <TableCell key={`${cell}-${i}`} align={i === 0 ? 'left' : 'right'}>
-        <Typography>{cell}</Typography>
-      </TableCell>
-    ),
-  )
+  return 'center'
 }
 
 const Results = memo(({ title, headerLabels, values, barWeight }) => {
   const classes = useStyles()
 
   return (
-    <TableContainer component={Paper}>
-      <Toolbar>
-        <Typography
-          variant="h5"
-          component="div"
-          className={classes.tableHeader}
-        >
-          {title}
-        </Typography>
-      </Toolbar>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {headerLabels.map((label, i) => (
-              <TableCell key={label} align={i === 0 ? 'left' : 'right'}>
-                <Typography>{label}</Typography>
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {values.map((row) => (
-            <TableRow key={JSON.stringify(row)}>
-              <Row row={row} barWeight={barWeight} />
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Grid container xs={12} direction="column" component={Paper}>
+      <Accordion defaultExpanded elevation={0} style={{ flex: 1 }}>
+        <AccordionSummary>
+          <Grid container spacing={2} xs={12}>
+            <Toolbar className={classes.tableHeader}>
+              <Typography variant="h5">{title}</Typography>
+            </Toolbar>
+          </Grid>
+        </AccordionSummary>
+        <AccordionDetails>
+          {/* "Table" head */}
+          <Grid container xs={12}>
+            <Grid container item className={classes.tableHead} xs={12}>
+              {headerLabels.map((label, i) => (
+                <Grid
+                  key={label}
+                  container
+                  item
+                  xs={12 / headerLabels.length}
+                  justify={getGridAlignment(i, headerLabels)}
+                >
+                  <Typography>{label}</Typography>
+                </Grid>
+              ))}
+            </Grid>
+            {/* "Table" body */}
+            <Grid item xs={12}>
+              {values.map((row) => (
+                <Row
+                  key={JSON.stringify(row)}
+                  row={row}
+                  barWeight={barWeight}
+                />
+              ))}
+            </Grid>
+          </Grid>
+        </AccordionDetails>
+      </Accordion>
+    </Grid>
   )
 })
 

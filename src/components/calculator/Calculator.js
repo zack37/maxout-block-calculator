@@ -170,7 +170,7 @@ const Calculator = () => {
         </Paper>
       </Grid>
       <Grid item container spacing={2} xs={12}>
-        <Grid item container xs={12} sm={6} md={4}>
+        <Grid item container xs={12}>
           <Results
             title="5×5"
             headerLabels={['Set', '%', 'Weight']}
@@ -182,7 +182,7 @@ const Calculator = () => {
             ])}
           />
         </Grid>
-        <Grid item container xs={12} sm={6} md={4}>
+        <Grid item container xs={12}>
           <Results
             title="5×3"
             headerLabels={['Set', '%', 'Weight']}
@@ -194,7 +194,7 @@ const Calculator = () => {
             ])}
           />
         </Grid>
-        <Grid item container xs={12} md={4}>
+        <Grid item container xs={12}>
           <Results
             title="10×10"
             headerLabels={['Set', 'Weight']}

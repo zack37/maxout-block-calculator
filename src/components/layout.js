@@ -14,6 +14,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import Header from './header'
 
 const useStyles = makeStyles((theme) => ({
+  main: {
+    margin: '0 auto',
+    maxWidth: 960,
+    padding: '2rem 1.0875rem 1.45rem',
+  },
   footer: {
     padding: `${theme.spacing(3)}px 0px`,
   },
@@ -35,18 +40,10 @@ const Layout = ({ children }) => {
     <>
       <CssBaseline />
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `2rem 1.0875rem 1.45rem`,
-        }}
-      >
+      <div className={classes.main}>
         <main>{children}</main>
         <footer className={classes.footer}>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          Built with <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
       </div>
     </>
