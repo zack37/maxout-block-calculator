@@ -11,6 +11,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import Results from './Results'
+import tableConfig from './table-config.json'
 
 const factors = [2.5, 5]
 const ROUNDING_MODES = {
@@ -23,12 +24,6 @@ const roundingModeFnMap = {
   [ROUNDING_MODES.DOWN]: Math.floor,
   [ROUNDING_MODES.NEAREST]: Math.round,
 }
-// TODO: Think about moving into a configuration file instead.
-// uses 5/100 rather than 0.05 because js rounding issues
-const percentSteps = Array.from({ length: 20 }, (_, i) => ((i + 1) * 5) / 100)
-const fiveByFiveSteps = [0.65, 0.65, 0.7, 0.7, 0.75]
-const fiveByThreeSteps = [0.75, 0.75, 0.8, 0.8, 0.85]
-const tenByTenSteps = Array.from({ length: 10 }, () => 0.5)
 const roundTo = (multiple, roundingMode = 'up') => (x) =>
   roundingModeFnMap[roundingMode](x / multiple) * multiple
 
@@ -170,49 +165,29 @@ const Calculator = () => {
         </Paper>
       </Grid>
       <Grid item container spacing={2} xs={12}>
-        <Grid item container xs={12}>
-          <Results
-            title="5×5"
-            headerLabels={['Set', '%', 'Weight']}
-            barWeight={barWeight}
-            values={fiveByFiveSteps.map((x, i) => [
-              i + 1,
-              `${Math.floor(x * 100)}%`,
-              round(weight * x),
-            ])}
-          />
-        </Grid>
-        <Grid item container xs={12}>
-          <Results
-            title="5×3"
-            headerLabels={['Set', '%', 'Weight']}
-            barWeight={barWeight}
-            values={fiveByThreeSteps.map((x, i) => [
-              i + 1,
-              `${Math.floor(x * 100)}%`,
-              round(weight * x),
-            ])}
-          />
-        </Grid>
-        <Grid item container xs={12}>
-          <Results
-            title="10×10"
-            headerLabels={['Set', 'Weight']}
-            barWeight={barWeight}
-            values={tenByTenSteps.map((x, i) => [i + 1, round(weight * x)])}
-          />
-        </Grid>
-        <Grid item container xs={12}>
-          <Results
-            title="Reference"
-            headerLabels={['%', 'Weight']}
-            barWeight={barWeight}
-            values={percentSteps.map((x) => [
-              `${Math.floor(x * 100)}%`,
-              round(weight * x),
-            ])}
-          />
-        </Grid>
+        {tableConfig.map((config) => {
+          const headerLabels = [
+            ...(config.showSetNumbers ? ['Set'] : []),
+            ...(config.showPercentages ? ['%'] : []),
+            'Weight',
+          ]
+          const values = config.steps.map((x, i) => [
+            ...(config.showSetNumbers ? [i + 1] : []),
+            ...(config.showPercentages ? [`${Math.floor(x * 100)}%`] : []),
+            round(weight * x),
+          ])
+
+          return (
+            <Grid key={config.title} container item xs={12}>
+              <Results
+                title={config.title}
+                headerLabels={headerLabels}
+                barWeight={barWeight}
+                values={values}
+              />
+            </Grid>
+          )
+        })}
       </Grid>
     </Grid>
   )

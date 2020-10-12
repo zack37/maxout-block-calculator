@@ -45,10 +45,10 @@ const Results = memo(({ title, headerLabels, values, barWeight }) => {
   const classes = useStyles()
 
   return (
-    <Grid container xs={12} direction="column" component={Paper}>
+    <Grid container item xs={12} direction="column" component={Paper}>
       <Accordion defaultExpanded elevation={0} style={{ flex: 1 }}>
         <AccordionSummary>
-          <Grid container spacing={2} xs={12}>
+          <Grid container item spacing={2} xs={12}>
             <Toolbar className={classes.tableHeader}>
               <Typography variant="h5">{title}</Typography>
             </Toolbar>
@@ -56,7 +56,7 @@ const Results = memo(({ title, headerLabels, values, barWeight }) => {
         </AccordionSummary>
         <AccordionDetails>
           {/* "Table" head */}
-          <Grid container xs={12}>
+          <Grid container item xs={12}>
             <Grid container item className={classes.tableHead} xs={12}>
               {headerLabels.map((label, i) => (
                 <Grid

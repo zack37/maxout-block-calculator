@@ -37,7 +37,7 @@ const Row = ({ row, barWeight }) => {
   const [open, setOpen] = useState(false)
 
   const handleTooltipClose = useCallback(() => setOpen(false), [])
-  const handleTooltipOpen = useCallback(() => setOpen(true), [])
+  const handleTooltipToggle = useCallback(() => setOpen((o) => !o), [])
 
   const getInsideComponent = (cell, i, array) =>
     i === array.length - 1 ? (
@@ -56,7 +56,7 @@ const Row = ({ row, barWeight }) => {
           >
             <Typography
               align={getAlignment(i, array)}
-              onClick={handleTooltipOpen}
+              onClick={handleTooltipToggle}
             >
               {cell}
             </Typography>
