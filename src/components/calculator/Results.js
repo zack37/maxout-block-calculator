@@ -46,7 +46,7 @@ const Results = memo(({ title, headerLabels, values, barWeight }) => {
 
   return (
     <Grid container item xs={12} direction="column" component={Paper}>
-      <Accordion defaultExpanded elevation={0} style={{ flex: 1 }}>
+      <Accordion elevation={0} style={{ flex: 1 }}>
         <AccordionSummary>
           <Grid container item spacing={2} xs={12}>
             <Toolbar className={classes.tableHeader}>
