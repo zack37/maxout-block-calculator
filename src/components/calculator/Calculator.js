@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -60,12 +60,19 @@ const roundingModeOptions = Object.keys(roundingModeFnMap).map((x) => (
 ))
 
 const Calculator = () => {
-  const [weight, setWeight] = useState(localStorage.getItem('weight') || 135)
+  const [weight, setWeight] = useState(135)
   const [barWeight, setBarWeight] = useState(45)
   const [factor, setFactor] = useState(5)
   const [roundingMode, setRoundingMode] = useState(ROUNDING_MODES.UP)
   const classes = useStyles()
   const round = roundTo(factor, roundingMode)
+
+  useEffect(() => {
+    const userWeight = localStorage.getItem('weight')
+    if (userWeight) {
+      setWeight(userWeight)
+    }
+  }, [setWeight])
 
   const handleBarWeightChange = ({ target: { value } }) => {
     if (value === '') {
