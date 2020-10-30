@@ -39,8 +39,14 @@ const Row = ({ row, barWeight }) => {
   const handleTooltipClose = useCallback(() => setOpen(false), [])
   const handleTooltipToggle = useCallback(() => setOpen((o) => !o), [])
 
-  const getInsideComponent = (cell, i, array) =>
-    i === array.length - 1 ? (
+  const getInsideComponent = (cell, i, array) => {
+    const eachSideWeight = (cell - barWeight) / 2
+    const plateLabel =
+      eachSideWeight <= 0
+        ? '😂 Get Stronger 😂'
+        : createPlateLabel(eachSideWeight)
+
+    return i === array.length - 1 ? (
       <Grid key={cell} item className={classes.cell} xs={12 / row.length}>
         <ClickAwayListener
           key={`${cell}-${i}`}
@@ -51,7 +57,7 @@ const Row = ({ row, barWeight }) => {
             disableFocusListener
             open={open}
             PopperProps={{ disablePortal: true }}
-            title={createPlateLabel((cell - barWeight) / 2)}
+            title={plateLabel}
             placement="top-end"
           >
             <Typography
@@ -68,6 +74,7 @@ const Row = ({ row, barWeight }) => {
         <Typography align={getAlignment(i, array)}>{cell}</Typography>
       </Grid>
     )
+  }
 
   return (
     <Grid container item xs={12} className={classes.row}>

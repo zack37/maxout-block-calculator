@@ -60,7 +60,7 @@ const roundingModeOptions = Object.keys(roundingModeFnMap).map((x) => (
 ))
 
 const Calculator = () => {
-  const [weight, setWeight] = useState(135)
+  const [weight, setWeight] = useState(localStorage.getItem('weight') || 135)
   const [barWeight, setBarWeight] = useState(45)
   const [factor, setFactor] = useState(5)
   const [roundingMode, setRoundingMode] = useState(ROUNDING_MODES.UP)
@@ -83,6 +83,7 @@ const Calculator = () => {
 
     const parsedValue = Number.parseInt(value || 0, 10)
     const clampedValue = Math.max(0, Math.min(parsedValue, 1200))
+    localStorage.setItem('weight', clampedValue)
     setWeight(clampedValue)
   }
 
