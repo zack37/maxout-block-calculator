@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -9,6 +9,7 @@ import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { useLocalStorage } from '../../hooks'
 
 import Results from './Results'
 import tableConfig from './table-config.json'
@@ -60,19 +61,12 @@ const roundingModeOptions = Object.keys(roundingModeFnMap).map((x) => (
 ))
 
 const Calculator = () => {
-  const [weight, setWeight] = useState(135)
+  const [weight, setWeight] = useLocalStorage('weight', 135)
   const [barWeight, setBarWeight] = useState(45)
   const [factor, setFactor] = useState(5)
   const [roundingMode, setRoundingMode] = useState(ROUNDING_MODES.UP)
   const classes = useStyles()
   const round = roundTo(factor, roundingMode)
-
-  useEffect(() => {
-    const userWeight = localStorage.getItem('weight')
-    if (userWeight) {
-      setWeight(userWeight)
-    }
-  }, [setWeight])
 
   const handleBarWeightChange = ({ target: { value } }) => {
     if (value === '') {
@@ -89,8 +83,7 @@ const Calculator = () => {
     }
 
     const parsedValue = Number.parseInt(value || 0, 10)
-    const clampedValue = Math.max(0, Math.min(parsedValue, 1200))
-    localStorage.setItem('weight', clampedValue)
+    const clampedValue = Math.max(0, parsedValue)
     setWeight(clampedValue)
   }
 

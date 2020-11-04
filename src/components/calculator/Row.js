@@ -45,13 +45,12 @@ const Row = ({ row, barWeight }) => {
       eachSideWeight <= 0
         ? '😂 Get Stronger 😂'
         : createPlateLabel(eachSideWeight)
+    const colWidth = 12 / row.length
+    const key = `${cell}-${i}`
 
     return i === array.length - 1 ? (
-      <Grid key={cell} item className={classes.cell} xs={12 / row.length}>
-        <ClickAwayListener
-          key={`${cell}-${i}`}
-          onClickAway={handleTooltipClose}
-        >
+      <Grid key={key} item className={classes.cell} xs={colWidth}>
+        <ClickAwayListener onClickAway={handleTooltipClose}>
           <Tooltip
             arrow
             disableFocusListener
@@ -70,7 +69,7 @@ const Row = ({ row, barWeight }) => {
         </ClickAwayListener>
       </Grid>
     ) : (
-      <Grid key={cell} item className={classes.cell} xs={12 / row.length}>
+      <Grid key={key} item className={classes.cell} xs={12 / row.length}>
         <Typography align={getAlignment(i, array)}>{cell}</Typography>
       </Grid>
     )
