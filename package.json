@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "maxout-block-calculator",
   "private": true,
   "description": "Small calculator website to help figure out how much weight you should be lifting to hit your max",
   "engines": {
