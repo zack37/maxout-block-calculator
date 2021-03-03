@@ -17,7 +17,8 @@
     "lint:fix": "yarn lint --fix",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "deploy": "yarn build && gh-pages -d public -u \"Zack Smith <zack.t.smith37@gmail.com>\"",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -80,6 +81,7 @@
     "rules": {
       "capitalized-comments": "off",
       "import/extensions": "off",
+      "node/file-extension-in-import": "off",
       "react/jsx-pascal-case": "off",
       "unicorn/filename-case": "off"
     }
