@@ -1,11 +1,11 @@
 {
   "name": "maxout-block-calculator",
   "private": true,
-  "description": "Small calculator website to help figure out how much weight you should be lifting to hit your max",
+  "description": "A calculator designed to give insight into how much weight you should be lifting in preparation for maxing out",
   "engines": {
     "node": "14"
   },
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Zack Smith <zack.t.smith37@gmail.com",
   "scripts": {
     "build": "gatsby build --prefix-paths",

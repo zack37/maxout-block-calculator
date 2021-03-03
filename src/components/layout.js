@@ -27,10 +27,11 @@ const useStyles = makeStyles((theme) => ({
 const Layout = ({ children }) => {
   const classes = useStyles()
   const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
+    query SiteMetadataQuery {
       site {
         siteMetadata {
           title
+          version
         }
       }
     }
@@ -44,6 +45,7 @@ const Layout = ({ children }) => {
         <main>{children}</main>
         <footer className={classes.footer}>
           Built with <a href="https://www.gatsbyjs.org">Gatsby</a>
+          <span>v{data.site.siteMetadata.version}</span>
         </footer>
       </div>
     </>
