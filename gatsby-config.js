@@ -1,12 +1,14 @@
 /* eslint-disable camelcase */
 const path = require('path')
+const packageJson = require('./package.json')
 
 module.exports = {
   pathPrefix: '/maxout-block-calculator',
   siteMetadata: {
     title: `Maxout Block Calculator`,
-    description: `A calculator designed to give insight into how much weight you should be lifting in preparation for maxing out`,
-    author: `@zack37`,
+    description: packageJson.description,
+    author: packageJson.author,
+    version: packageJson.version,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
