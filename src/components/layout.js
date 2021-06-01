@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
         <main>{children}</main>
         <footer className={classes.footer}>
           Built with <a href="https://www.gatsbyjs.org">Gatsby</a>
-          <span>v{data.site.siteMetadata.version}</span>
+          <span> v{data.site.siteMetadata.version}</span>
         </footer>
       </div>
     </>

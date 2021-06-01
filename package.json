@@ -5,7 +5,7 @@
   "engines": {
     "node": ">=14"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Zack Smith <zack.t.smith37@gmail.com",
   "scripts": {
     "build": "gatsby build --prefix-paths",
